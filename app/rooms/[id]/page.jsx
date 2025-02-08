@@ -1,5 +1,5 @@
 import React from 'react'
-import rooms from '@/data/rooms.json'
+import getSingleRoom from '@/app/actions/getSingleRoom'
 import Heading from '@/components/Heading'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,16 +7,16 @@ import BookingForm from '@/components/BookingForm'
 import {FaChevronCircleLeft} from 'react-icons/fa'
 
 
-const page = ({params}) => {
+const page = async ({params}) => {
     const {id} = params
-    const room = rooms.find((room) => room.$id === id)
+    const room = await getSingleRoom(id)
     if(!room){
         return <Heading title={'Room Not Found'}/>
     }
 
   return (
     <>
-    <Heading title={`Room ${id}`}/>
+    <Heading title={room.name}/>
     <div className="bg-white shadow rounded-lg p-6">
         <Link
           href="/"
