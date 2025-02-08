@@ -4,6 +4,14 @@ import Link from 'next/link'
 
 
 const RoomCard = ({room}) => {
+
+  const bucketId = process.env.NEXT_PUBLIC_APPWRITE_STORAGE_BUCKET_ROOMS
+  const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT
+
+  const imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${bucketId}/files/${room.image}/view?project=${projectId}`
+  const imageSrc = room.image ? imageUrl : '/images/no-image.jpg'
+
+
   return (
     <div>
        <div
@@ -13,7 +21,7 @@ const RoomCard = ({room}) => {
         <Link
             href={`/rooms/${room.$id}`}>
           <Image
-            src={`/images/rooms/${room.image}`}
+            src={imageSrc}
             width={400}
             height={100}
             alt={room.name}
